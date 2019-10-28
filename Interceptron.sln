@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.Core", "Interceptron.Core\Interceptron.Core.csproj", "{6852A5F7-29A5-4712-8A1B-B88A1ADB76C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.Core", "Interceptron.Core\Interceptron.Core.csproj", "{6852A5F7-29A5-4712-8A1B-B88A1ADB76C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.Core.Tests", "Interceptron.Core.Tests\Interceptron.Core.Tests.csproj", "{16A1E909-BF09-46C4-AFA1-230818331AA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{6852A5F7-29A5-4712-8A1B-B88A1ADB76C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6852A5F7-29A5-4712-8A1B-B88A1ADB76C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6852A5F7-29A5-4712-8A1B-B88A1ADB76C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16A1E909-BF09-46C4-AFA1-230818331AA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16A1E909-BF09-46C4-AFA1-230818331AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16A1E909-BF09-46C4-AFA1-230818331AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16A1E909-BF09-46C4-AFA1-230818331AA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
