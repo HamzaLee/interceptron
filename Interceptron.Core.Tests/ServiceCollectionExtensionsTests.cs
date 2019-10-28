@@ -379,6 +379,98 @@ namespace Interceptron.Core.Tests
 
         #endregion
 
+        #region AddTransient
+
+        [Test]
+        public void AddTransientWithoutImplementationFactoryAndOptionsForClass()
+        {
+            var (services, _, interceptors) = PrepareServiceCollectionWithoutOptions(ProxyTargetType.Class);
+
+            services.AddTransient<TestService>(interceptors);
+
+            Assert.AreEqual(2, services.Count);
+            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+        }
+
+        [Test]
+        public void AddTransientWithoutImplementationFactoryAndWithOptionsForClass()
+        {
+            var (services, _, proxyGenerationOptions, interceptors) = PrepareServiceCollectionWithOptions(ProxyTargetType.Class);
+
+            services.AddTransient<TestService>(proxyGenerationOptions, interceptors);
+
+            Assert.AreEqual(2, services.Count);
+            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+        }
+
+        [Test]
+        public void AddTransientWithoutImplementationFactoryAndOptionsForInterface()
+        {
+            var (services, _, interceptors) = PrepareServiceCollectionWithoutOptions(ProxyTargetType.Interface);
+
+            services.AddTransient<ITestService, TestService>(interceptors);
+
+            Assert.AreEqual(2, services.Count);
+            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+        }
+
+        [Test]
+        public void AddTransientWithoutImplementationFactoryAndWithOptionsForInterface()
+        {
+            var (services, _, proxyGenerationOptions, interceptors) = PrepareServiceCollectionWithOptions(ProxyTargetType.Interface);
+
+            services.AddTransient<ITestService, TestService>(proxyGenerationOptions, interceptors);
+
+            Assert.AreEqual(2, services.Count);
+            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+        }
+
+        [Test]
+        public void AddTransientWithImplementationFactoryAndWithoutOptionsForClass()
+        {
+            var (services, ImplementationFactory, interceptors) = PrepareServiceCollectionWithoutOptions(ProxyTargetType.Class);
+
+            services.AddTransient(ImplementationFactory, interceptors);
+
+            Assert.AreEqual(2, services.Count);
+            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+        }
+
+        [Test]
+        public void AddTransientWithImplementationFactoryAndOptionsForClass()
+        {
+            var (services, ImplementationFactory, proxyGenerationOptions, interceptors) = PrepareServiceCollectionWithOptions(ProxyTargetType.Class);
+
+            services.AddTransient(ImplementationFactory, proxyGenerationOptions, interceptors);
+
+            Assert.AreEqual(2, services.Count);
+            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+        }
+
+        [Test]
+        public void AddTransientWithImplementationFactoryAndWithoutOptionsForInterface()
+        {
+            var (services, ImplementationFactory, interceptors) = PrepareServiceCollectionWithoutOptions(ProxyTargetType.Interface);
+
+            services.AddTransient<ITestService, TestService>(ImplementationFactory, interceptors);
+
+            Assert.AreEqual(2, services.Count);
+            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+        }
+
+        [Test]
+        public void AddTransientWithImplementationFactoryAndOptionsForInterface()
+        {
+            var (services, ImplementationFactory, proxyGenerationOptions, interceptors) = PrepareServiceCollectionWithOptions(ProxyTargetType.Interface);
+
+            services.AddTransient<ITestService, TestService>(ImplementationFactory, proxyGenerationOptions, interceptors);
+
+            Assert.AreEqual(2, services.Count);
+            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+        }
+
+        #endregion
+
         #region Private helper methods
 
         #region Generator registration
