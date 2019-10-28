@@ -267,5 +267,145 @@ namespace Interceptron.Core
         }
 
         #endregion
+
+        #region AddScoped
+
+        public static IServiceCollection AddScoped<TService>(this IServiceCollection services, IInterceptor[] interceptors)
+            where TService : class
+        {
+            return Add<TService>(services, ServiceLifetime.Scoped, interceptors);
+        }
+
+        public static IServiceCollection AddScoped<TService>(this IServiceCollection services, ProxyGenerationOptions proxyGenerationOptions, IInterceptor[] interceptors)
+            where TService : class
+        {
+            return Add<TService>(services, ServiceLifetime.Scoped, proxyGenerationOptions, interceptors);
+        }
+
+        public static IServiceCollection AddScoped<TService, TImplementation>(this IServiceCollection services, IInterceptor[] interceptors)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return Add<TService, TImplementation>(services, ServiceLifetime.Scoped, interceptors);
+        }
+
+        public static IServiceCollection AddScoped<TService, TImplementation>(this IServiceCollection services, ProxyGenerationOptions proxyGenerationOptions, IInterceptor[] interceptors)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return Add<TService, TImplementation>(services, ServiceLifetime.Scoped, proxyGenerationOptions, interceptors);
+        }
+
+        public static IServiceCollection AddScoped<TService>(
+            this IServiceCollection services,
+            Func<IServiceProvider, TService> implementationFactory,
+            IInterceptor[] interceptors)
+            where TService : class
+        {
+            return Add(services, implementationFactory, ServiceLifetime.Scoped, interceptors);
+        }
+
+        public static IServiceCollection AddScoped<TService>(
+            this IServiceCollection services,
+            Func<IServiceProvider, TService> implementationFactory,
+            ProxyGenerationOptions proxyGenerationOptions,
+            IInterceptor[] interceptors)
+            where TService : class
+        {
+            return Add(services, implementationFactory, ServiceLifetime.Scoped, proxyGenerationOptions, interceptors);
+        }
+
+        public static IServiceCollection AddScoped<TService, TImplementation>(
+            this IServiceCollection services,
+            Func<IServiceProvider, TImplementation> implementationFactory,
+            IInterceptor[] interceptors)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return Add<TService, TImplementation>(services, implementationFactory, ServiceLifetime.Scoped, interceptors);
+        }
+
+        public static IServiceCollection AddScoped<TService, TImplementation>(
+            this IServiceCollection services,
+            Func<IServiceProvider, TImplementation> implementationFactory,
+            ProxyGenerationOptions proxyGenerationOptions,
+            IInterceptor[] interceptors)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return Add<TService, TImplementation>(services, implementationFactory, ServiceLifetime.Scoped, proxyGenerationOptions, interceptors);
+        }
+
+        #endregion
+
+        #region AddSingleton
+
+        public static IServiceCollection AddSingleton<TService>(this IServiceCollection services, IInterceptor[] interceptors)
+            where TService : class
+        {
+            return Add<TService>(services, ServiceLifetime.Singleton, interceptors);
+        }
+
+        public static IServiceCollection AddSingleton<TService>(this IServiceCollection services, ProxyGenerationOptions proxyGenerationOptions, IInterceptor[] interceptors)
+            where TService : class
+        {
+            return Add<TService>(services, ServiceLifetime.Singleton, proxyGenerationOptions, interceptors);
+        }
+
+        public static IServiceCollection AddSingleton<TService, TImplementation>(this IServiceCollection services, IInterceptor[] interceptors)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return Add<TService, TImplementation>(services, ServiceLifetime.Singleton, interceptors);
+        }
+
+        public static IServiceCollection AddSingleton<TService, TImplementation>(this IServiceCollection services, ProxyGenerationOptions proxyGenerationOptions, IInterceptor[] interceptors)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return Add<TService, TImplementation>(services, ServiceLifetime.Singleton, proxyGenerationOptions, interceptors);
+        }
+
+        public static IServiceCollection AddSingleton<TService>(
+            this IServiceCollection services,
+            Func<IServiceProvider, TService> implementationFactory,
+            IInterceptor[] interceptors)
+            where TService : class
+        {
+            return Add(services, implementationFactory, ServiceLifetime.Singleton, interceptors);
+        }
+
+        public static IServiceCollection AddSingleton<TService>(
+            this IServiceCollection services,
+            Func<IServiceProvider, TService> implementationFactory,
+            ProxyGenerationOptions proxyGenerationOptions,
+            IInterceptor[] interceptors)
+            where TService : class
+        {
+            return Add(services, implementationFactory, ServiceLifetime.Singleton, proxyGenerationOptions, interceptors);
+        }
+
+        public static IServiceCollection AddSingleton<TService, TImplementation>(
+            this IServiceCollection services,
+            Func<IServiceProvider, TImplementation> implementationFactory,
+            IInterceptor[] interceptors)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return Add<TService, TImplementation>(services, implementationFactory, ServiceLifetime.Singleton, interceptors);
+        }
+
+        public static IServiceCollection AddSingleton<TService, TImplementation>(
+            this IServiceCollection services,
+            Func<IServiceProvider, TImplementation> implementationFactory,
+            ProxyGenerationOptions proxyGenerationOptions,
+            IInterceptor[] interceptors)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return Add<TService, TImplementation>(services, implementationFactory, ServiceLifetime.Singleton, proxyGenerationOptions, interceptors);
+        }
+
+        #endregion
     }
 }
