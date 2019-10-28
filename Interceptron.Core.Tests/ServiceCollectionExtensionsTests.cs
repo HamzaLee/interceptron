@@ -388,8 +388,7 @@ namespace Interceptron.Core.Tests
 
             services.AddTransient<TestService>(interceptors);
 
-            Assert.AreEqual(2, services.Count);
-            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Transient);
         }
 
         [Test]
@@ -399,8 +398,7 @@ namespace Interceptron.Core.Tests
 
             services.AddTransient<TestService>(proxyGenerationOptions, interceptors);
 
-            Assert.AreEqual(2, services.Count);
-            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Transient);
         }
 
         [Test]
@@ -410,8 +408,7 @@ namespace Interceptron.Core.Tests
 
             services.AddTransient<ITestService, TestService>(interceptors);
 
-            Assert.AreEqual(2, services.Count);
-            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Transient);
         }
 
         [Test]
@@ -421,8 +418,7 @@ namespace Interceptron.Core.Tests
 
             services.AddTransient<ITestService, TestService>(proxyGenerationOptions, interceptors);
 
-            Assert.AreEqual(2, services.Count);
-            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Transient);
         }
 
         [Test]
@@ -432,8 +428,7 @@ namespace Interceptron.Core.Tests
 
             services.AddTransient(ImplementationFactory, interceptors);
 
-            Assert.AreEqual(2, services.Count);
-            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Transient);
         }
 
         [Test]
@@ -443,8 +438,7 @@ namespace Interceptron.Core.Tests
 
             services.AddTransient(ImplementationFactory, proxyGenerationOptions, interceptors);
 
-            Assert.AreEqual(2, services.Count);
-            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Transient);
         }
 
         [Test]
@@ -454,8 +448,7 @@ namespace Interceptron.Core.Tests
 
             services.AddTransient<ITestService, TestService>(ImplementationFactory, interceptors);
 
-            Assert.AreEqual(2, services.Count);
-            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Transient);
         }
 
         [Test]
@@ -465,8 +458,175 @@ namespace Interceptron.Core.Tests
 
             services.AddTransient<ITestService, TestService>(ImplementationFactory, proxyGenerationOptions, interceptors);
 
-            Assert.AreEqual(2, services.Count);
-            Assert.AreEqual(ServiceLifetime.Transient, services[1].Lifetime);
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Transient);
+        }
+
+        #endregion
+
+        #region AddScoped
+
+        [Test]
+        public void AddScopedWithoutImplementationFactoryAndOptionsForClass()
+        {
+            var (services, _, interceptors) = PrepareServiceCollectionWithoutOptions(ProxyTargetType.Class);
+
+            services.AddScoped<TestService>(interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Scoped);
+        }
+
+        [Test]
+        public void AddScopedWithoutImplementationFactoryAndWithOptionsForClass()
+        {
+            var (services, _, proxyGenerationOptions, interceptors) = PrepareServiceCollectionWithOptions(ProxyTargetType.Class);
+
+            services.AddScoped<TestService>(proxyGenerationOptions, interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Scoped);
+        }
+
+        [Test]
+        public void AddScopedWithoutImplementationFactoryAndOptionsForInterface()
+        {
+            var (services, _, interceptors) = PrepareServiceCollectionWithoutOptions(ProxyTargetType.Interface);
+
+            services.AddScoped<ITestService, TestService>(interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Scoped);
+        }
+
+        [Test]
+        public void AddScopedWithoutImplementationFactoryAndWithOptionsForInterface()
+        {
+            var (services, _, proxyGenerationOptions, interceptors) = PrepareServiceCollectionWithOptions(ProxyTargetType.Interface);
+
+            services.AddScoped<ITestService, TestService>(proxyGenerationOptions, interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Scoped);
+        }
+
+        [Test]
+        public void AddScopedWithImplementationFactoryAndWithoutOptionsForClass()
+        {
+            var (services, ImplementationFactory, interceptors) = PrepareServiceCollectionWithoutOptions(ProxyTargetType.Class);
+
+            services.AddScoped(ImplementationFactory, interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Scoped);
+        }
+
+        [Test]
+        public void AddScopedWithImplementationFactoryAndOptionsForClass()
+        {
+            var (services, ImplementationFactory, proxyGenerationOptions, interceptors) = PrepareServiceCollectionWithOptions(ProxyTargetType.Class);
+
+            services.AddScoped(ImplementationFactory, proxyGenerationOptions, interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Scoped);
+        }
+
+        [Test]
+        public void AddScopedWithImplementationFactoryAndWithoutOptionsForInterface()
+        {
+            var (services, ImplementationFactory, interceptors) = PrepareServiceCollectionWithoutOptions(ProxyTargetType.Interface);
+
+            services.AddScoped<ITestService, TestService>(ImplementationFactory, interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Scoped);
+        }
+
+        [Test]
+        public void AddScopedWithImplementationFactoryAndOptionsForInterface()
+        {
+            var (services, ImplementationFactory, proxyGenerationOptions, interceptors) = PrepareServiceCollectionWithOptions(ProxyTargetType.Interface);
+
+            services.AddScoped<ITestService, TestService>(ImplementationFactory, proxyGenerationOptions, interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Scoped);
+        }
+
+        #endregion
+
+        #region AddSingleton
+
+        [Test]
+        public void AddSingletonWithoutImplementationFactoryAndOptionsForClass()
+        {
+            var (services, _, interceptors) = PrepareServiceCollectionWithoutOptions(ProxyTargetType.Class);
+
+            services.AddSingleton<TestService>(interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Singleton);
+        }
+
+        [Test]
+        public void AddSingletonWithoutImplementationFactoryAndWithOptionsForClass()
+        {
+            var (services, _, proxyGenerationOptions, interceptors) = PrepareServiceCollectionWithOptions(ProxyTargetType.Class);
+
+            services.AddSingleton<TestService>(proxyGenerationOptions, interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Singleton);
+        }
+
+        [Test]
+        public void AddSingletonWithoutImplementationFactoryAndOptionsForInterface()
+        {
+            var (services, _, interceptors) = PrepareServiceCollectionWithoutOptions(ProxyTargetType.Interface);
+
+            services.AddSingleton<ITestService, TestService>(interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Singleton);
+        }
+
+        [Test]
+        public void AddSingletonWithoutImplementationFactoryAndWithOptionsForInterface()
+        {
+            var (services, _, proxyGenerationOptions, interceptors) = PrepareServiceCollectionWithOptions(ProxyTargetType.Interface);
+
+            services.AddSingleton<ITestService, TestService>(proxyGenerationOptions, interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Singleton);
+        }
+
+        [Test]
+        public void AddSingletonWithImplementationFactoryAndWithoutOptionsForClass()
+        {
+            var (services, ImplementationFactory, interceptors) = PrepareServiceCollectionWithoutOptions(ProxyTargetType.Class);
+
+            services.AddSingleton(ImplementationFactory, interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Singleton);
+        }
+
+        [Test]
+        public void AddSingletonWithImplementationFactoryAndOptionsForClass()
+        {
+            var (services, ImplementationFactory, proxyGenerationOptions, interceptors) = PrepareServiceCollectionWithOptions(ProxyTargetType.Class);
+
+            services.AddSingleton(ImplementationFactory, proxyGenerationOptions, interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Singleton);
+        }
+
+        [Test]
+        public void AddSingletonWithImplementationFactoryAndWithoutOptionsForInterface()
+        {
+            var (services, ImplementationFactory, interceptors) = PrepareServiceCollectionWithoutOptions(ProxyTargetType.Interface);
+
+            services.AddSingleton<ITestService, TestService>(ImplementationFactory, interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Singleton);
+        }
+
+        [Test]
+        public void AddSingletonWithImplementationFactoryAndOptionsForInterface()
+        {
+            var (services, ImplementationFactory, proxyGenerationOptions, interceptors) = PrepareServiceCollectionWithOptions(ProxyTargetType.Interface);
+
+            services.AddSingleton<ITestService, TestService>(ImplementationFactory, proxyGenerationOptions, interceptors);
+
+            AssertServicesCountAndLifetime(services, ServiceLifetime.Singleton);
         }
 
         #endregion
@@ -535,6 +695,12 @@ namespace Interceptron.Core.Tests
             Assert.AreEqual(actualInterceptors[0], interceptors[0]);
 
             Assert.IsInstanceOf<TestService>(testProxyService.GetTarget());
+        }
+
+        private static void AssertServicesCountAndLifetime(IServiceCollection services, ServiceLifetime serviceLifetime)
+        {
+            Assert.AreEqual(2, services.Count);
+            Assert.AreEqual(serviceLifetime, services[1].Lifetime);
         }
 
         #endregion
