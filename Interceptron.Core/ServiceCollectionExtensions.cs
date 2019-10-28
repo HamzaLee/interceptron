@@ -194,5 +194,78 @@ namespace Interceptron.Core
         }
 
         #endregion
+
+        #region AddTransient
+
+        public static IServiceCollection AddTransient<TService>(this IServiceCollection services, IInterceptor[] interceptors)
+         where TService : class
+        {
+            return Add<TService>(services, ServiceLifetime.Transient, interceptors);
+        }
+
+        public static IServiceCollection AddTransient<TService>(this IServiceCollection services, ProxyGenerationOptions proxyGenerationOptions, IInterceptor[] interceptors)
+            where TService : class
+        {
+            return Add<TService>(services, ServiceLifetime.Transient, proxyGenerationOptions, interceptors);
+        }
+
+        public static IServiceCollection AddTransient<TService, TImplementation>(this IServiceCollection services, IInterceptor[] interceptors)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return Add<TService, TImplementation>(services, ServiceLifetime.Transient, interceptors);
+        }
+
+        public static IServiceCollection AddTransient<TService, TImplementation>(
+            this IServiceCollection services,
+            ProxyGenerationOptions proxyGenerationOptions,
+            IInterceptor[] interceptors)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return Add<TService, TImplementation>(services, ServiceLifetime.Transient, proxyGenerationOptions, interceptors);
+        }
+
+        public static IServiceCollection AddTransient<TService>(
+            this IServiceCollection services,
+            Func<IServiceProvider, TService> implementationFactory,
+            IInterceptor[] interceptors)
+            where TService : class
+        {
+            return Add(services, implementationFactory, ServiceLifetime.Transient, interceptors);
+        }
+
+        public static IServiceCollection AddTransient<TService>(
+            this IServiceCollection services,
+            Func<IServiceProvider, TService> implementationFactory,
+            ProxyGenerationOptions proxyGenerationOptions,
+            IInterceptor[] interceptors)
+            where TService : class
+        {
+            return Add(services, implementationFactory, ServiceLifetime.Transient, proxyGenerationOptions, interceptors);
+        }
+
+        public static IServiceCollection AddTransient<TService, TImplementation>(
+            this IServiceCollection services,
+            Func<IServiceProvider, TImplementation> implementationFactory,
+            IInterceptor[] interceptors)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return Add<TService, TImplementation>(services, implementationFactory, ServiceLifetime.Transient, interceptors);
+        }
+
+        public static IServiceCollection AddTransient<TService, TImplementation>(
+            this IServiceCollection services,
+            Func<IServiceProvider, TImplementation> implementationFactory,
+            ProxyGenerationOptions proxyGenerationOptions,
+            IInterceptor[] interceptors)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return Add<TService, TImplementation>(services, implementationFactory, ServiceLifetime.Transient, proxyGenerationOptions, interceptors);
+        }
+
+        #endregion
     }
 }
