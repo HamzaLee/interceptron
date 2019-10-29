@@ -10,6 +10,7 @@
     <RepositoryUrl>https://github.com/HamzaLee/interceptron</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>dotnet-core ioc dependency-injection interception dispatchproxy interceptron</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +19,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Interceptron.Core\Interceptron.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
