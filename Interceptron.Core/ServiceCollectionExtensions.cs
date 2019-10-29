@@ -10,7 +10,7 @@ namespace Interceptron.Core
         public static IServiceCollection Add<TService>(
             this IServiceCollection services,
             ServiceLifetime serviceLifetime,
-            IInterceptor[] interceptors)
+            IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             TService ImplementationFactory(IServiceProvider serviceProvider) => ActivatorUtilities.CreateInstance<TService>(serviceProvider);
@@ -21,8 +21,8 @@ namespace Interceptron.Core
         public static IServiceCollection Add<TService>(
             this IServiceCollection services,
             ServiceLifetime serviceLifetime,
-            ProxyGenerationOptions proxyGenerationOptions,
-            IInterceptor[] interceptors)
+            InterceptronProxyGenerationOptions proxyGenerationOptions,
+            IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             TService ImplementationFactory(IServiceProvider serviceProvider) => ActivatorUtilities.CreateInstance<TService>(serviceProvider);
@@ -33,7 +33,7 @@ namespace Interceptron.Core
         public static IServiceCollection Add<TService, TImplementation>(
             this IServiceCollection services,
             ServiceLifetime serviceLifetime,
-            IInterceptor[] interceptors)
+            IInterceptronInterceptor[] interceptors)
            where TService : class
            where TImplementation : class, TService
         {
@@ -46,8 +46,8 @@ namespace Interceptron.Core
         public static IServiceCollection Add<TService, TImplementation>(
             this IServiceCollection services,
             ServiceLifetime serviceLifetime,
-            ProxyGenerationOptions proxyGenerationOptions,
-            IInterceptor[] interceptors)
+            InterceptronProxyGenerationOptions proxyGenerationOptions,
+            IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {
@@ -61,7 +61,7 @@ namespace Interceptron.Core
             this IServiceCollection services,
             Func<IServiceProvider, TService> implementationFactory,
             ServiceLifetime serviceLifetime,
-            IInterceptor[] interceptors)
+            IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             if (interceptors == null)
@@ -70,7 +70,7 @@ namespace Interceptron.Core
             }
 
 
-            TService ProxyFactory(IProxyGenerator generator, TService implementationInstance)
+            TService ProxyFactory(IInterceptronProxyGenerator generator, TService implementationInstance)
             {
                 return generator.CreateClassProxy(implementationInstance, interceptors);
             }
@@ -82,13 +82,13 @@ namespace Interceptron.Core
             this IServiceCollection services,
             Func<IServiceProvider, TService> implementationFactory,
             ServiceLifetime serviceLifetime,
-            ProxyGenerationOptions proxyGenerationOptions,
-            IInterceptor[] interceptors)
+            InterceptronProxyGenerationOptions proxyGenerationOptions,
+            IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             if (proxyGenerationOptions == null)
             {
-                throw new ArgumentNullException(nameof(ProxyGenerationOptions));
+                throw new ArgumentNullException(nameof(InterceptronProxyGenerationOptions));
             }
 
             if (interceptors == null)
@@ -96,7 +96,7 @@ namespace Interceptron.Core
                 throw new ArgumentNullException(nameof(interceptors));
             }
 
-            TService ProxyFactory(IProxyGenerator generator, TService implementationInstance) =>
+            TService ProxyFactory(IInterceptronProxyGenerator generator, TService implementationInstance) =>
                 generator.CreateClassProxy(implementationInstance, proxyGenerationOptions, interceptors);
 
             return Add(services, implementationFactory, serviceLifetime, ProxyFactory);
@@ -106,7 +106,7 @@ namespace Interceptron.Core
             this IServiceCollection services,
             Func<IServiceProvider, TImplementation> implementationFactory,
             ServiceLifetime serviceLifetime,
-            IInterceptor[] interceptors)
+            IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {
@@ -115,7 +115,7 @@ namespace Interceptron.Core
                 throw new ArgumentNullException(nameof(interceptors));
             }
 
-            TService ProxyFactory(IProxyGenerator generator, TImplementation implementationInstance) =>
+            TService ProxyFactory(IInterceptronProxyGenerator generator, TImplementation implementationInstance) =>
                 generator.CreateInterfaceProxy<TService>(implementationInstance, interceptors);
 
             return Add(services, implementationFactory, serviceLifetime, ProxyFactory);
@@ -125,14 +125,14 @@ namespace Interceptron.Core
             this IServiceCollection services,
             Func<IServiceProvider, TImplementation> implementationFactory,
             ServiceLifetime serviceLifetime,
-            ProxyGenerationOptions proxyGenerationOptions,
-            IInterceptor[] interceptors)
+            InterceptronProxyGenerationOptions proxyGenerationOptions,
+            IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {
             if (proxyGenerationOptions == null)
             {
-                throw new ArgumentNullException(nameof(ProxyGenerationOptions));
+                throw new ArgumentNullException(nameof(InterceptronProxyGenerationOptions));
             }
 
             if (interceptors == null)
@@ -140,7 +140,7 @@ namespace Interceptron.Core
                 throw new ArgumentNullException(nameof(interceptors));
             }
 
-            TService ProxyFactory(IProxyGenerator generator, TImplementation implementationInstance) =>
+            TService ProxyFactory(IInterceptronProxyGenerator generator, TImplementation implementationInstance) =>
                 generator.CreateInterfaceProxy<TService>(implementationInstance, proxyGenerationOptions, interceptors);
 
             return Add(services, implementationFactory, serviceLifetime, ProxyFactory);
@@ -150,7 +150,7 @@ namespace Interceptron.Core
             this IServiceCollection services,
             Func<IServiceProvider, TImplementation> implementationFactory,
             ServiceLifetime serviceLifetime,
-            Func<IProxyGenerator, TImplementation, TService> proxyFactory)
+            Func<IInterceptronProxyGenerator, TImplementation, TService> proxyFactory)
             where TService : class
             where TImplementation : class, TService
         {
@@ -176,13 +176,13 @@ namespace Interceptron.Core
                     var implementationInstance = implementationFactory(provider);
                     if (implementationInstance == null)
                     {
-                        throw new ProxyGeneratorException("The result of the implementation factory should not be null.");
+                        throw new InterceptronProxyGeneratorException("The result of the implementation factory should not be null.");
                     }
                     
-                    var generator = provider.GetService<IProxyGenerator>();
+                    var generator = provider.GetService<IInterceptronProxyGenerator>();
                     if (generator == null)
                     {
-                        throw new GeneratorNotFoundException("Cannot resolve IGenerator, you should register a type that implements IGenerator.");
+                        throw new InterceptronGeneratorNotFoundException("Cannot resolve IGenerator, you should register a type that implements IGenerator.");
                     }
 
                     return proxyFactory(generator, implementationInstance);
@@ -197,19 +197,19 @@ namespace Interceptron.Core
 
         #region AddTransient
 
-        public static IServiceCollection AddTransient<TService>(this IServiceCollection services, IInterceptor[] interceptors)
+        public static IServiceCollection AddTransient<TService>(this IServiceCollection services, IInterceptronInterceptor[] interceptors)
          where TService : class
         {
             return Add<TService>(services, ServiceLifetime.Transient, interceptors);
         }
 
-        public static IServiceCollection AddTransient<TService>(this IServiceCollection services, ProxyGenerationOptions proxyGenerationOptions, IInterceptor[] interceptors)
+        public static IServiceCollection AddTransient<TService>(this IServiceCollection services, InterceptronProxyGenerationOptions proxyGenerationOptions, IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             return Add<TService>(services, ServiceLifetime.Transient, proxyGenerationOptions, interceptors);
         }
 
-        public static IServiceCollection AddTransient<TService, TImplementation>(this IServiceCollection services, IInterceptor[] interceptors)
+        public static IServiceCollection AddTransient<TService, TImplementation>(this IServiceCollection services, IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {
@@ -218,8 +218,8 @@ namespace Interceptron.Core
 
         public static IServiceCollection AddTransient<TService, TImplementation>(
             this IServiceCollection services,
-            ProxyGenerationOptions proxyGenerationOptions,
-            IInterceptor[] interceptors)
+            InterceptronProxyGenerationOptions proxyGenerationOptions,
+            IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {
@@ -229,7 +229,7 @@ namespace Interceptron.Core
         public static IServiceCollection AddTransient<TService>(
             this IServiceCollection services,
             Func<IServiceProvider, TService> implementationFactory,
-            IInterceptor[] interceptors)
+            IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             return Add(services, implementationFactory, ServiceLifetime.Transient, interceptors);
@@ -238,8 +238,8 @@ namespace Interceptron.Core
         public static IServiceCollection AddTransient<TService>(
             this IServiceCollection services,
             Func<IServiceProvider, TService> implementationFactory,
-            ProxyGenerationOptions proxyGenerationOptions,
-            IInterceptor[] interceptors)
+            InterceptronProxyGenerationOptions proxyGenerationOptions,
+            IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             return Add(services, implementationFactory, ServiceLifetime.Transient, proxyGenerationOptions, interceptors);
@@ -248,7 +248,7 @@ namespace Interceptron.Core
         public static IServiceCollection AddTransient<TService, TImplementation>(
             this IServiceCollection services,
             Func<IServiceProvider, TImplementation> implementationFactory,
-            IInterceptor[] interceptors)
+            IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {
@@ -258,8 +258,8 @@ namespace Interceptron.Core
         public static IServiceCollection AddTransient<TService, TImplementation>(
             this IServiceCollection services,
             Func<IServiceProvider, TImplementation> implementationFactory,
-            ProxyGenerationOptions proxyGenerationOptions,
-            IInterceptor[] interceptors)
+            InterceptronProxyGenerationOptions proxyGenerationOptions,
+            IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {
@@ -270,26 +270,26 @@ namespace Interceptron.Core
 
         #region AddScoped
 
-        public static IServiceCollection AddScoped<TService>(this IServiceCollection services, IInterceptor[] interceptors)
+        public static IServiceCollection AddScoped<TService>(this IServiceCollection services, IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             return Add<TService>(services, ServiceLifetime.Scoped, interceptors);
         }
 
-        public static IServiceCollection AddScoped<TService>(this IServiceCollection services, ProxyGenerationOptions proxyGenerationOptions, IInterceptor[] interceptors)
+        public static IServiceCollection AddScoped<TService>(this IServiceCollection services, InterceptronProxyGenerationOptions proxyGenerationOptions, IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             return Add<TService>(services, ServiceLifetime.Scoped, proxyGenerationOptions, interceptors);
         }
 
-        public static IServiceCollection AddScoped<TService, TImplementation>(this IServiceCollection services, IInterceptor[] interceptors)
+        public static IServiceCollection AddScoped<TService, TImplementation>(this IServiceCollection services, IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {
             return Add<TService, TImplementation>(services, ServiceLifetime.Scoped, interceptors);
         }
 
-        public static IServiceCollection AddScoped<TService, TImplementation>(this IServiceCollection services, ProxyGenerationOptions proxyGenerationOptions, IInterceptor[] interceptors)
+        public static IServiceCollection AddScoped<TService, TImplementation>(this IServiceCollection services, InterceptronProxyGenerationOptions proxyGenerationOptions, IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {
@@ -299,7 +299,7 @@ namespace Interceptron.Core
         public static IServiceCollection AddScoped<TService>(
             this IServiceCollection services,
             Func<IServiceProvider, TService> implementationFactory,
-            IInterceptor[] interceptors)
+            IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             return Add(services, implementationFactory, ServiceLifetime.Scoped, interceptors);
@@ -308,8 +308,8 @@ namespace Interceptron.Core
         public static IServiceCollection AddScoped<TService>(
             this IServiceCollection services,
             Func<IServiceProvider, TService> implementationFactory,
-            ProxyGenerationOptions proxyGenerationOptions,
-            IInterceptor[] interceptors)
+            InterceptronProxyGenerationOptions proxyGenerationOptions,
+            IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             return Add(services, implementationFactory, ServiceLifetime.Scoped, proxyGenerationOptions, interceptors);
@@ -318,7 +318,7 @@ namespace Interceptron.Core
         public static IServiceCollection AddScoped<TService, TImplementation>(
             this IServiceCollection services,
             Func<IServiceProvider, TImplementation> implementationFactory,
-            IInterceptor[] interceptors)
+            IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {
@@ -328,8 +328,8 @@ namespace Interceptron.Core
         public static IServiceCollection AddScoped<TService, TImplementation>(
             this IServiceCollection services,
             Func<IServiceProvider, TImplementation> implementationFactory,
-            ProxyGenerationOptions proxyGenerationOptions,
-            IInterceptor[] interceptors)
+            InterceptronProxyGenerationOptions proxyGenerationOptions,
+            IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {
@@ -340,26 +340,26 @@ namespace Interceptron.Core
 
         #region AddSingleton
 
-        public static IServiceCollection AddSingleton<TService>(this IServiceCollection services, IInterceptor[] interceptors)
+        public static IServiceCollection AddSingleton<TService>(this IServiceCollection services, IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             return Add<TService>(services, ServiceLifetime.Singleton, interceptors);
         }
 
-        public static IServiceCollection AddSingleton<TService>(this IServiceCollection services, ProxyGenerationOptions proxyGenerationOptions, IInterceptor[] interceptors)
+        public static IServiceCollection AddSingleton<TService>(this IServiceCollection services, InterceptronProxyGenerationOptions proxyGenerationOptions, IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             return Add<TService>(services, ServiceLifetime.Singleton, proxyGenerationOptions, interceptors);
         }
 
-        public static IServiceCollection AddSingleton<TService, TImplementation>(this IServiceCollection services, IInterceptor[] interceptors)
+        public static IServiceCollection AddSingleton<TService, TImplementation>(this IServiceCollection services, IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {
             return Add<TService, TImplementation>(services, ServiceLifetime.Singleton, interceptors);
         }
 
-        public static IServiceCollection AddSingleton<TService, TImplementation>(this IServiceCollection services, ProxyGenerationOptions proxyGenerationOptions, IInterceptor[] interceptors)
+        public static IServiceCollection AddSingleton<TService, TImplementation>(this IServiceCollection services, InterceptronProxyGenerationOptions proxyGenerationOptions, IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {
@@ -369,7 +369,7 @@ namespace Interceptron.Core
         public static IServiceCollection AddSingleton<TService>(
             this IServiceCollection services,
             Func<IServiceProvider, TService> implementationFactory,
-            IInterceptor[] interceptors)
+            IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             return Add(services, implementationFactory, ServiceLifetime.Singleton, interceptors);
@@ -378,8 +378,8 @@ namespace Interceptron.Core
         public static IServiceCollection AddSingleton<TService>(
             this IServiceCollection services,
             Func<IServiceProvider, TService> implementationFactory,
-            ProxyGenerationOptions proxyGenerationOptions,
-            IInterceptor[] interceptors)
+            InterceptronProxyGenerationOptions proxyGenerationOptions,
+            IInterceptronInterceptor[] interceptors)
             where TService : class
         {
             return Add(services, implementationFactory, ServiceLifetime.Singleton, proxyGenerationOptions, interceptors);
@@ -388,7 +388,7 @@ namespace Interceptron.Core
         public static IServiceCollection AddSingleton<TService, TImplementation>(
             this IServiceCollection services,
             Func<IServiceProvider, TImplementation> implementationFactory,
-            IInterceptor[] interceptors)
+            IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {
@@ -398,8 +398,8 @@ namespace Interceptron.Core
         public static IServiceCollection AddSingleton<TService, TImplementation>(
             this IServiceCollection services,
             Func<IServiceProvider, TImplementation> implementationFactory,
-            ProxyGenerationOptions proxyGenerationOptions,
-            IInterceptor[] interceptors)
+            InterceptronProxyGenerationOptions proxyGenerationOptions,
+            IInterceptronInterceptor[] interceptors)
             where TService : class
             where TImplementation : class, TService
         {

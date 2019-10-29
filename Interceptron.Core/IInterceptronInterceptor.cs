@@ -1,6 +1,6 @@
 ﻿namespace Interceptron.Core
 {
-    public interface IInterceptor
+    public interface IInterceptronInterceptor
     {
         object Intercept(object invocation);
     }

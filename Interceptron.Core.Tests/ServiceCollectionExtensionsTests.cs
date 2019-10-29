@@ -1,4 +1,5 @@
 ﻿using System;
+using Interceptron.Tests;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using NUnit.Framework;
@@ -31,8 +32,8 @@ namespace Interceptron.Core.Tests
         {
             var services = new ServiceCollection();
             TestService ImplementationFactory(IServiceProvider sp) => new TestService();
-            ITestService ProxyFactory(IProxyGenerator generator, TestService s) => new TestProxyService(s);
-            var generatorMock = new Mock<IProxyGenerator>();
+            ITestService ProxyFactory(IInterceptronProxyGenerator generator, TestService s) => new TestProxyService(s);
+            var generatorMock = new Mock<IInterceptronProxyGenerator>();
             services.AddSingleton(sp => generatorMock.Object);
 
             services.Add(ImplementationFactory, ServiceLifetime.Transient, ProxyFactory);
@@ -50,7 +51,7 @@ namespace Interceptron.Core.Tests
         public void Add_WhenServicesIsNull_ThenThrowArgumentNullException()
         {
             TestService ImplementationFactory(IServiceProvider sp) => new TestService();
-            ITestService ProxyFactory(IProxyGenerator generator, TestService s) => new TestProxyService(s);
+            ITestService ProxyFactory(IInterceptronProxyGenerator generator, TestService s) => new TestProxyService(s);
 
             Assert.Throws<ArgumentNullException>(() =>
                 ServiceCollectionExtensions.Add(
@@ -64,7 +65,7 @@ namespace Interceptron.Core.Tests
         public void Add_WhenImplementationFactoryIsNull_ThenThrowArgumentNullException()
         {
             var services = new ServiceCollection();
-            ITestService ProxyFactory(IProxyGenerator generator, TestService s) => new TestProxyService(s);
+            ITestService ProxyFactory(IInterceptronProxyGenerator generator, TestService s) => new TestProxyService(s);
 
             Assert.Throws<ArgumentNullException>(() =>
                 services.Add<ITestService, TestService>(
@@ -91,12 +92,12 @@ namespace Interceptron.Core.Tests
         {
             var services = new ServiceCollection();
             TestService ImplementationFactory(IServiceProvider sp) => null;
-            ITestService ProxyFactory(IProxyGenerator generator, TestService s) => new TestProxyService(s);
+            ITestService ProxyFactory(IInterceptronProxyGenerator generator, TestService s) => new TestProxyService(s);
 
             services.Add(ImplementationFactory, ServiceLifetime.Transient, ProxyFactory);
 
             var serviceProvider = services.BuildServiceProvider();
-            Assert.Throws<ProxyGeneratorException>(() => serviceProvider.GetService<ITestService>());
+            Assert.Throws<InterceptronProxyGeneratorException>(() => serviceProvider.GetService<ITestService>());
         }
 
         [Test]
@@ -104,12 +105,12 @@ namespace Interceptron.Core.Tests
         {
             var services = new ServiceCollection();
             TestService ImplementationFactory(IServiceProvider sp) => new TestService();
-            ITestService ProxyFactory(IProxyGenerator generator, TestService s) => new TestProxyService(s);
+            ITestService ProxyFactory(IInterceptronProxyGenerator generator, TestService s) => new TestProxyService(s);
 
             services.Add(ImplementationFactory, ServiceLifetime.Transient, ProxyFactory);
 
             var serviceProvider = services.BuildServiceProvider();
-            Assert.Throws<GeneratorNotFoundException>(() => serviceProvider.GetService<ITestService>());
+            Assert.Throws<InterceptronGeneratorNotFoundException>(() => serviceProvider.GetService<ITestService>());
         }
 
         #endregion
@@ -142,8 +143,8 @@ namespace Interceptron.Core.Tests
         {
             var services = new ServiceCollection();
             TestService ImplementationFactory(IServiceProvider sp) => new TestService();
-            var interceptorMock = new Mock<IInterceptor>();
-            IInterceptor[] interceptors = { interceptorMock.Object };
+            var interceptorMock = new Mock<IInterceptronInterceptor>();
+            IInterceptronInterceptor[] interceptors = { interceptorMock.Object };
 
             Assert.Throws<ArgumentNullException>(() => services.Add<ITestService, TestService>(
                 ImplementationFactory,
@@ -157,7 +158,7 @@ namespace Interceptron.Core.Tests
         {
             var services = new ServiceCollection();
             TestService ImplementationFactory(IServiceProvider sp) => new TestService();
-            var proxyGenerationOptions = new ProxyGenerationOptions();
+            var proxyGenerationOptions = new InterceptronProxyGenerationOptions();
 
             Assert.Throws<ArgumentNullException>(() => services.Add<ITestService, TestService>(
                 ImplementationFactory,
@@ -637,46 +638,46 @@ namespace Interceptron.Core.Tests
 
         private static void RegisterProxyGeneratorWithOptionsForInterface(IServiceCollection services)
         {
-            var generatorMock = new Mock<IProxyGenerator>();
+            var generatorMock = new Mock<IInterceptronProxyGenerator>();
             generatorMock.Setup(g => g.CreateInterfaceProxy(
                 It.IsAny<ITestService>(),
-                It.IsAny<ProxyGenerationOptions>(),
-                It.IsAny<IInterceptor[]>())).Returns(
-                (ITestService s, ProxyGenerationOptions o, IInterceptor[] i) =>
+                It.IsAny<InterceptronProxyGenerationOptions>(),
+                It.IsAny<IInterceptronInterceptor[]>())).Returns(
+                (ITestService s, InterceptronProxyGenerationOptions o, IInterceptronInterceptor[] i) =>
                     new TestProxyService(s, i));
             services.AddSingleton(sp => generatorMock.Object);
         }
 
         private static void RegisterProxyGeneratorWithoutOptionsForInterface(IServiceCollection services)
         {
-            var generatorMock = new Mock<IProxyGenerator>();
+            var generatorMock = new Mock<IInterceptronProxyGenerator>();
             generatorMock.Setup(g => g.CreateInterfaceProxy(
                 It.IsAny<ITestService>(),
-                It.IsAny<IInterceptor[]>())).Returns(
-                (ITestService s, IInterceptor[] i) =>
+                It.IsAny<IInterceptronInterceptor[]>())).Returns(
+                (ITestService s, IInterceptronInterceptor[] i) =>
                     new TestProxyService(s, i));
             services.AddSingleton(sp => generatorMock.Object);
         }
 
         private static void RegisterProxyGeneratorWithOptionsForClass(IServiceCollection services)
         {
-            var generatorMock = new Mock<IProxyGenerator>();
+            var generatorMock = new Mock<IInterceptronProxyGenerator>();
             generatorMock.Setup(g => g.CreateClassProxy(
                 It.IsAny<ITestService>(),
-                It.IsAny<ProxyGenerationOptions>(),
-                It.IsAny<IInterceptor[]>())).Returns(
-                (ITestService s, ProxyGenerationOptions o, IInterceptor[] i) =>
+                It.IsAny<InterceptronProxyGenerationOptions>(),
+                It.IsAny<IInterceptronInterceptor[]>())).Returns(
+                (ITestService s, InterceptronProxyGenerationOptions o, IInterceptronInterceptor[] i) =>
                     new TestProxyService(s, i));
             services.AddSingleton(sp => generatorMock.Object);
         }
 
         private static void RegisterProxyGeneratorWithoutOptionsForClass(IServiceCollection services)
         {
-            var generatorMock = new Mock<IProxyGenerator>();
+            var generatorMock = new Mock<IInterceptronProxyGenerator>();
             generatorMock.Setup(g => g.CreateClassProxy(
                 It.IsAny<ITestService>(),
-                It.IsAny<IInterceptor[]>())).Returns(
-                (ITestService s, IInterceptor[] i) =>
+                It.IsAny<IInterceptronInterceptor[]>())).Returns(
+                (ITestService s, IInterceptronInterceptor[] i) =>
                 new TestProxyService(s, i));
             services.AddSingleton(sp => generatorMock.Object);
         }
@@ -685,7 +686,7 @@ namespace Interceptron.Core.Tests
 
         #region Assertion
 
-        private static void AssertTestProxyService(ITestService service, IInterceptor[] interceptors)
+        private static void AssertTestProxyService(ITestService service, IInterceptronInterceptor[] interceptors)
         {
             var testProxyService = service as IProxy<ITestService>;
             Assert.IsNotNull(testProxyService);
@@ -707,13 +708,13 @@ namespace Interceptron.Core.Tests
 
         #region Service collection preparation
 
-        private (IServiceCollection services, Func<IServiceProvider, TestService> implementationFactory, ProxyGenerationOptions proxyGenerationOptions, IInterceptor[] interceptors) PrepareServiceCollectionWithOptions(ProxyTargetType targetType)
+        private (IServiceCollection services, Func<IServiceProvider, TestService> implementationFactory, InterceptronProxyGenerationOptions proxyGenerationOptions, IInterceptronInterceptor[] interceptors) PrepareServiceCollectionWithOptions(ProxyTargetType targetType)
         {
             var services = new ServiceCollection();
             TestService ImplementationFactory(IServiceProvider sp) => new TestService();
-            var proxyGenerationOptions = new ProxyGenerationOptions();
-            var interceptorMock = new Mock<IInterceptor>();
-            IInterceptor[] interceptors = { interceptorMock.Object };
+            var proxyGenerationOptions = new InterceptronProxyGenerationOptions();
+            var interceptorMock = new Mock<IInterceptronInterceptor>();
+            IInterceptronInterceptor[] interceptors = { interceptorMock.Object };
             switch (targetType)
             {
                 case ProxyTargetType.Interface:
@@ -729,12 +730,12 @@ namespace Interceptron.Core.Tests
             return (services, ImplementationFactory, proxyGenerationOptions, interceptors);
         }
 
-        private (IServiceCollection services, Func<IServiceProvider, TestService> implementationFactory, IInterceptor[] interceptors) PrepareServiceCollectionWithoutOptions(ProxyTargetType targetType)
+        private (IServiceCollection services, Func<IServiceProvider, TestService> implementationFactory, IInterceptronInterceptor[] interceptors) PrepareServiceCollectionWithoutOptions(ProxyTargetType targetType)
         {
             var services = new ServiceCollection();
             TestService ImplementationFactory(IServiceProvider sp) => new TestService();
-            var interceptorMock = new Mock<IInterceptor>();
-            IInterceptor[] interceptors = { interceptorMock.Object };
+            var interceptorMock = new Mock<IInterceptronInterceptor>();
+            IInterceptronInterceptor[] interceptors = { interceptorMock.Object };
             switch (targetType)
             {
                 case ProxyTargetType.Interface:

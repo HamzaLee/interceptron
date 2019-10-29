@@ -1,17 +1,19 @@
-﻿namespace Interceptron.Core.Tests
+﻿using Interceptron.Core;
+
+namespace Interceptron.Tests
 {
     public class TestProxyService : TestService, IProxy<ITestService>
     {
         private readonly ITestService innerService;
-        private readonly IInterceptor[] interceptors;
+        private readonly IInterceptronInterceptor[] interceptors;
 
-        public TestProxyService(ITestService service, IInterceptor[] interceptors = null)
+        public TestProxyService(ITestService service, IInterceptronInterceptor[] interceptors = null)
         {
             this.innerService = service;
             this.interceptors = interceptors;
         }
 
-        public IInterceptor[] GetInterceptors() => this.interceptors;
+        public IInterceptronInterceptor[] GetInterceptors() => this.interceptors;
 
         public ITestService GetTarget() => this.innerService;
     }
