@@ -7,11 +7,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.Core", "Interc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.Core.Tests", "Interceptron.Core.Tests\Interceptron.Core.Tests.csproj", "{16A1E909-BF09-46C4-AFA1-230818331AA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.DynamicProxy", "Interceptron.DynamicProxy\Interceptron.DynamicProxy.csproj", "{77995900-9CD8-4652-BC6D-E30E4091666F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.DynamicProxy", "Interceptron.DynamicProxy\Interceptron.DynamicProxy.csproj", "{77995900-9CD8-4652-BC6D-E30E4091666F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.DynamicProxy.Tests", "Interceptron.DynamicProxy.Tests\Interceptron.DynamicProxy.Tests.csproj", "{9C8101AF-309D-4DD6-80A3-F7D1DA7FEC68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.DynamicProxy.Tests", "Interceptron.DynamicProxy.Tests\Interceptron.DynamicProxy.Tests.csproj", "{9C8101AF-309D-4DD6-80A3-F7D1DA7FEC68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.Tests", "Interceptron.Tests\Interceptron.Tests.csproj", "{D2DF072A-6BA9-4692-A61D-C8817273AC78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.Tests", "Interceptron.Tests\Interceptron.Tests.csproj", "{D2DF072A-6BA9-4692-A61D-C8817273AC78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.DispatchProxy", "Interceptron.DispatchProxy\Interceptron.DispatchProxy.csproj", "{4E0BAFD7-94F8-400D-A028-86F180C8AC58}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{9478CE9C-B6D5-45A7-BAC4-05E577369F3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DispatchProxy", "DispatchProxy", "{6019E67D-B839-44C9-ACBE-6D54ACDBD2B8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DynamicProxy", "DynamicProxy", "{3ABF0A4D-959A-41A1-9419-8536F3556B4C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCutting", "CrossCutting", "{E92B8A1B-09EF-468E-A2F7-2820A66F7385}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.DispatchProxy.Tests", "Interceptron.DispatchProxy.Tests\Interceptron.DispatchProxy.Tests.csproj", "{7FBD5615-9757-4B99-89CC-A084C69D4413}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +51,26 @@ Global
 		{D2DF072A-6BA9-4692-A61D-C8817273AC78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2DF072A-6BA9-4692-A61D-C8817273AC78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2DF072A-6BA9-4692-A61D-C8817273AC78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E0BAFD7-94F8-400D-A028-86F180C8AC58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E0BAFD7-94F8-400D-A028-86F180C8AC58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E0BAFD7-94F8-400D-A028-86F180C8AC58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E0BAFD7-94F8-400D-A028-86F180C8AC58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FBD5615-9757-4B99-89CC-A084C69D4413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FBD5615-9757-4B99-89CC-A084C69D4413}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FBD5615-9757-4B99-89CC-A084C69D4413}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FBD5615-9757-4B99-89CC-A084C69D4413}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6852A5F7-29A5-4712-8A1B-B88A1ADB76C7} = {9478CE9C-B6D5-45A7-BAC4-05E577369F3E}
+		{16A1E909-BF09-46C4-AFA1-230818331AA0} = {9478CE9C-B6D5-45A7-BAC4-05E577369F3E}
+		{77995900-9CD8-4652-BC6D-E30E4091666F} = {3ABF0A4D-959A-41A1-9419-8536F3556B4C}
+		{9C8101AF-309D-4DD6-80A3-F7D1DA7FEC68} = {3ABF0A4D-959A-41A1-9419-8536F3556B4C}
+		{D2DF072A-6BA9-4692-A61D-C8817273AC78} = {E92B8A1B-09EF-468E-A2F7-2820A66F7385}
+		{4E0BAFD7-94F8-400D-A028-86F180C8AC58} = {6019E67D-B839-44C9-ACBE-6D54ACDBD2B8}
+		{7FBD5615-9757-4B99-89CC-A084C69D4413} = {6019E67D-B839-44C9-ACBE-6D54ACDBD2B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5AA12CF9-A987-46E9-9A93-934E7D9B16E7}
