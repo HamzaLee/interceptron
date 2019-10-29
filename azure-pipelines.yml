@@ -8,7 +8,7 @@ stages:
   variables:
     buildConfiguration: 'Release'
     solutionPath: "Interceptron.sln"
-    projectToPackPath: "Interceptron.Core/Interceptron.Core.csproj"
+    projectsToPackPath: "Interceptron.Core/Interceptron.Core.csproj;Interceptron.DynamicProxy/Interceptron.DynamicProxy.csproj;Interceptron.DispatchProxy/Interceptron.DispatchProxy.csproj"
 
   jobs:
   - job:
@@ -40,7 +40,7 @@ stages:
       displayName: 'Create NuGet Package - Release Version'
       inputs:
         command: pack
-        packagesToPack: '$(projectToPackPath)'
+        packagesToPack: '$(projectsToPackPath)'
         packDirectory: '$(Build.ArtifactStagingDirectory)/packages/releases'
         arguments: '--configuration $(buildConfiguration)'
         nobuild: true 
