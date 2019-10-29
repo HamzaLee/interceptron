@@ -20,7 +20,6 @@ namespace Interceptron.DynamicProxy.Tests
         public void ToInterceptronInterceptor_WhenInterceptorIsNotNull_ThenReturnIInterceptronInterceptor()
         {
             var interceptorMock = new Mock<IInterceptor>();
-            interceptorMock.Setup(i => i.Intercept(It.IsAny<IInvocation>()));
             var interceptronInterceptor = interceptorMock.Object.ToInterceptronInterceptor();
            
             Assert.IsInstanceOf<IInterceptronInterceptor>(interceptronInterceptor);

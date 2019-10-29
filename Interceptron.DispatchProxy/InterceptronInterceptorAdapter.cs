@@ -1,17 +1,16 @@
 ﻿using System;
-using Castle.DynamicProxy;
 using Interceptron.Core;
 
-namespace Interceptron.DynamicProxy
+namespace Interceptron.DispatchProxy
 {
     public class InterceptronInterceptorAdapter : IInterceptronInterceptor
     {
-        public InterceptronInterceptorAdapter(IInterceptor interceptor)
+        public InterceptronInterceptorAdapter(DispatchProxyInterceptor interceptor)
         {
             this.Interceptor = interceptor ?? throw new ArgumentNullException(nameof(interceptor));
         }
 
-        private IInterceptor Interceptor { get; }
+        public DispatchProxyInterceptor Interceptor { get; }
 
         public object Intercept(object invocation)
         {
@@ -20,13 +19,13 @@ namespace Interceptron.DynamicProxy
                 throw new ArgumentNullException(nameof(invocation));
             }
 
-            if (!(invocation is IInvocation dynamicProxyInvocation))
+            if (!(invocation is DispatchProxyInvocation dispatchProxyInvocation))
             {
                 throw new InvalidCastException($"{invocation} parameter should be of type IInvocation.");
             }
 
-            this.Interceptor.Intercept(dynamicProxyInvocation);
-            return dynamicProxyInvocation.ReturnValue;
+            this.Interceptor.Target = dispatchProxyInvocation.Target;
+            return Interceptor.Intercept(dispatchProxyInvocation);
         }
     }
 }
