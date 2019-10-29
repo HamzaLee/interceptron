@@ -5,7 +5,13 @@ VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.Core", "Interceptron.Core\Interceptron.Core.csproj", "{6852A5F7-29A5-4712-8A1B-B88A1ADB76C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.Core.Tests", "Interceptron.Core.Tests\Interceptron.Core.Tests.csproj", "{16A1E909-BF09-46C4-AFA1-230818331AA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.Core.Tests", "Interceptron.Core.Tests\Interceptron.Core.Tests.csproj", "{16A1E909-BF09-46C4-AFA1-230818331AA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.DynamicProxy", "Interceptron.DynamicProxy\Interceptron.DynamicProxy.csproj", "{77995900-9CD8-4652-BC6D-E30E4091666F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.DynamicProxy.Tests", "Interceptron.DynamicProxy.Tests\Interceptron.DynamicProxy.Tests.csproj", "{9C8101AF-309D-4DD6-80A3-F7D1DA7FEC68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.Tests", "Interceptron.Tests\Interceptron.Tests.csproj", "{D2DF072A-6BA9-4692-A61D-C8817273AC78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{16A1E909-BF09-46C4-AFA1-230818331AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16A1E909-BF09-46C4-AFA1-230818331AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16A1E909-BF09-46C4-AFA1-230818331AA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77995900-9CD8-4652-BC6D-E30E4091666F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77995900-9CD8-4652-BC6D-E30E4091666F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77995900-9CD8-4652-BC6D-E30E4091666F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77995900-9CD8-4652-BC6D-E30E4091666F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C8101AF-309D-4DD6-80A3-F7D1DA7FEC68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C8101AF-309D-4DD6-80A3-F7D1DA7FEC68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C8101AF-309D-4DD6-80A3-F7D1DA7FEC68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C8101AF-309D-4DD6-80A3-F7D1DA7FEC68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2DF072A-6BA9-4692-A61D-C8817273AC78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2DF072A-6BA9-4692-A61D-C8817273AC78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2DF072A-6BA9-4692-A61D-C8817273AC78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2DF072A-6BA9-4692-A61D-C8817273AC78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

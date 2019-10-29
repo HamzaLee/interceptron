@@ -1,4 +1,4 @@
-﻿namespace Interceptron.Core.Tests
+﻿namespace Interceptron.Tests
 {
     public interface ITestService
     {
