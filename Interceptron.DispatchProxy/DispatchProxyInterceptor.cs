@@ -1,5 +1,4 @@
-﻿
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace Interceptron.DispatchProxy
 {
@@ -7,7 +6,7 @@ namespace Interceptron.DispatchProxy
     {
         public object Target { get; set; }
 
-        public abstract object Intercept(DispatchProxyInvocation dispatchProxyInvocation);
+        public abstract object Intercept(DispatchProxyInvocation invocation);
 
         protected override object Invoke(MethodInfo targetMethod, object[] args)
         {

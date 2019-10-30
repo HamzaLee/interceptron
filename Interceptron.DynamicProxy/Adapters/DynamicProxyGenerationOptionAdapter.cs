@@ -2,7 +2,7 @@
 using Castle.DynamicProxy;
 using Interceptron.Core;
 
-namespace Interceptron.DynamicProxy
+namespace Interceptron.DynamicProxy.Adapters
 {
     public class DynamicProxyGenerationOptionAdapter : ProxyGenerationOptions
     {

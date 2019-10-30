@@ -1,14 +1,13 @@
 ﻿using System;
-using Interceptron.Core;
 
 namespace Interceptron.DispatchProxy.Sample
 {
-    internal class SimpleDispatchProxyInterceptor : IInterceptronInterceptor
+    public class SimpleDispatchProxyInterceptor : DispatchProxyInterceptor
     {
-        public object Intercept(IInterceptronInvocation invocation)
+        public override object Intercept(DispatchProxyInvocation dispatchProxyInvocation)
         {
-            Console.WriteLine($"--- Intercept {invocation.Target.GetType().Name}");
-            return invocation.Invoke();
+            Console.WriteLine($"+++ Intercept from DispatchProxy {dispatchProxyInvocation.Target.GetType().Name}");
+            return dispatchProxyInvocation.Invoke();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Interceptron.Core;
 
-namespace Interceptron.DispatchProxy
+namespace Interceptron.DispatchProxy.Adapters
 {
     public class DispatcherProxyInterceptorAdapter : DispatchProxyInterceptor
     {
@@ -10,7 +10,7 @@ namespace Interceptron.DispatchProxy
         {
             if (this.Interceptor == null)
             {
-                throw new InterceptorNullException("Interceptor is null, you should assign a value before calling Intercept.");
+                throw new InterceptronInterceptorNullException("Interceptor is null, you should assign a value before calling Intercept.");
             }
 
             invocation.Target = this.Target;

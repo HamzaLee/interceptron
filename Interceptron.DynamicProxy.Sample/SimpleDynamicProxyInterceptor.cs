@@ -1,15 +1,14 @@
 ﻿using System;
 using Castle.DynamicProxy;
-using Interceptron.Core;
 
 namespace Interceptron.DynamicProxy.Sample
 {
-    public class SimpleDynamicProxyInterceptor : IInterceptronInterceptor
+    public class SimpleDynamicProxyInterceptor : IInterceptor
     {
-        public object Intercept(IInterceptronInvocation invocation)
+        public void Intercept(IInvocation invocation)
         {
-            Console.WriteLine($"--- Intercept {invocation.Target.GetType().Name}");
-            return invocation.Invoke();
+            Console.WriteLine($"+++ Intercept from DynamicProxy {invocation.TargetType.Name}");
+            invocation.Proceed();
         }
     }
 }

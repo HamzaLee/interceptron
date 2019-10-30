@@ -291,7 +291,7 @@ namespace Interceptron.Core.Tests
         [Test]
         public void AddProxyWithImplementationFactoryAndOptionsForClassResolution_WhenInterceptorsIsNull_ThenThrowArgumentNullException()
         {
-            var (services, ImplementationFactory, proxyGenerationOptions, interceptors) = PrepareServiceCollectionWithOptions(ProxyTargetType.Class);
+            var (services, ImplementationFactory, proxyGenerationOptions, _) = PrepareServiceCollectionWithOptions(ProxyTargetType.Class);
 
             Assert.Throws<ArgumentNullException>(() => services.Add(
                 ImplementationFactory,
