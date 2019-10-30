@@ -1,7 +1,5 @@
 ﻿using System;
-using Castle.DynamicProxy;
 using Interceptron.Core;
-using Interceptron.DispatchProxy.Sample;
 using Interceptron.Sample.Shared;
 using Microsoft.Extensions.DependencyInjection;
 

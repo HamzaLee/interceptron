@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Castle.DynamicProxy;
 
-namespace Interceptron.DispatchProxy.Sample
+namespace Interceptron.DynamicProxy.Sample
 {
     public class SimpleDynamicProxyInterceptor : IInterceptor
     {
