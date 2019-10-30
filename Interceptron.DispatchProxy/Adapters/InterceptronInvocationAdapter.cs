@@ -1,8 +1,8 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using Interceptron.Core;
+using Interceptron.DispatchProxy.DispatchProxyWrappers;
 
-namespace Interceptron.DispatchProxy
+namespace Interceptron.DispatchProxy.Adapters
 {
     public class InterceptronInvocationAdapter : IInterceptronInvocation
     {
@@ -27,7 +27,7 @@ namespace Interceptron.DispatchProxy
         {
             if (!(this.Invocation is DispatchProxyInvocation dynamicProxyInvocation))
             {
-                throw new ArgumentNullException();
+                throw new InterceptronInvocationException($"The invocation should be of type {nameof(DispatchProxyInvocation)}", typeof(DispatchProxyInvocation), this.Invocation.GetType());
             }
 
             return dynamicProxyInvocation.Invoke();

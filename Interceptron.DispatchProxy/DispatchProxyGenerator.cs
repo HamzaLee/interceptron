@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Interceptron.Core;
+using Interceptron.DispatchProxy.Adapters;
 
 namespace Interceptron.DispatchProxy
 {
@@ -29,10 +30,16 @@ namespace Interceptron.DispatchProxy
         private static TService InterfaceProxyWithTarget<TService>(TService implementationInstance, IInterceptronInterceptor interceptor) where TService : class
         {
             var proxy = System.Reflection.DispatchProxy.Create<TService, DispatcherProxyInterceptorAdapter>();
-            var dispatcherProxyInterceptorAdapter = proxy as DispatcherProxyInterceptorAdapter;
 
-            dispatcherProxyInterceptorAdapter.Interceptor = interceptor;
-            dispatcherProxyInterceptorAdapter.Target = implementationInstance;
+            if (proxy is DispatcherProxyInterceptorAdapter dispatcherProxyInterceptorAdapter)
+            {
+                dispatcherProxyInterceptorAdapter.Interceptor = interceptor;
+                dispatcherProxyInterceptorAdapter.Target = implementationInstance;
+            }
+            else
+            {
+                throw new DispatchProxyGeneratorException("Unable to create a proxy with DispatchProxy.");
+            }
 
             return proxy;
         }

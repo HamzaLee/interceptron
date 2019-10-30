@@ -1,5 +1,8 @@
 ﻿using System;
+using Castle.DynamicProxy;
 using Interceptron.Core;
+using Interceptron.DynamicProxy.Adapters;
+using Interceptron.DynamicProxy.Helpers;
 using Moq;
 using NUnit.Framework;
 
@@ -21,7 +24,7 @@ namespace Interceptron.DynamicProxy.Tests
             var transformedInterceptors = DynamicProxyGeneratorHelper.ToDynamicProxyInterceptors(interceptors);
 
             Assert.NotNull(transformedInterceptors);
-            Assert.IsInstanceOf<DynamicProxyInterceptorAdapter[]>(transformedInterceptors);
+            Assert.IsInstanceOf<IInterceptor[]>(transformedInterceptors);
 
             var transformedInterceptor = transformedInterceptors[0] as DynamicProxyInterceptorAdapter;
             Assert.IsNotNull(transformedInterceptor);

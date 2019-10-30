@@ -1,4 +1,6 @@
 ﻿using Interceptron.Core;
+using Interceptron.DispatchProxy.Adapters;
+using Interceptron.DispatchProxy.DispatchProxyWrappers;
 using Moq;
 using NUnit.Framework;
 
@@ -11,7 +13,7 @@ namespace Interceptron.DispatchProxy.Tests
         {
             var dispatcherProxyInterceptorAdapter = new DispatcherProxyInterceptorAdapter();
             var invocation = new DispatchProxyInvocation(null, null, null);
-            Assert.Throws<InterceptorNullException>(() => dispatcherProxyInterceptorAdapter.Intercept(invocation));
+            Assert.Throws<InterceptronInterceptorNullException>(() => dispatcherProxyInterceptorAdapter.Intercept(invocation));
         }
 
         [Test]

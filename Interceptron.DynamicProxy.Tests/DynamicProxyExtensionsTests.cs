@@ -3,7 +3,6 @@ using Castle.DynamicProxy;
 using Interceptron.Core;
 using Moq;
 using NUnit.Framework;
-using IInvocation = Castle.DynamicProxy.IInvocation;
 
 namespace Interceptron.DynamicProxy.Tests
 {

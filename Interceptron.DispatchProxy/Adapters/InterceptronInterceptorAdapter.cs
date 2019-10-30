@@ -1,7 +1,8 @@
 ﻿using System;
 using Interceptron.Core;
+using Interceptron.DispatchProxy.DispatchProxyWrappers;
 
-namespace Interceptron.DispatchProxy
+namespace Interceptron.DispatchProxy.Adapters
 {
     public class InterceptronInterceptorAdapter : IInterceptronInterceptor
     {

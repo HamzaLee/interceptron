@@ -1,7 +1,7 @@
 ﻿
 using System.Reflection;
 
-namespace Interceptron.DispatchProxy
+namespace Interceptron.DispatchProxy.DispatchProxyWrappers
 {
     public abstract class DispatchProxyInterceptor : System.Reflection.DispatchProxy
     {

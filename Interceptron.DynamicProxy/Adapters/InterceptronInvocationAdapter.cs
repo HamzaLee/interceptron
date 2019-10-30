@@ -1,9 +1,8 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using Castle.DynamicProxy;
 using Interceptron.Core;
 
-namespace Interceptron.DynamicProxy
+namespace Interceptron.DynamicProxy.Adapters
 {
     public class InterceptronInvocationAdapter : IInterceptronInvocation
     {
@@ -28,7 +27,7 @@ namespace Interceptron.DynamicProxy
         {
             if (!(this.Invocation is IInvocation dynamicProxyInvocation))
             {
-                throw new ArgumentNullException();
+                throw new InterceptronInvocationException($"The invocation should be of type {nameof(IInvocation)}", typeof(IInvocation), this.Invocation.GetType());
             }
 
             dynamicProxyInvocation.Proceed();

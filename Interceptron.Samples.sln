@@ -5,15 +5,23 @@ VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.DynamicProxy", "Interceptron.DynamicProxy\Interceptron.DynamicProxy.csproj", "{F1FD66BD-5880-4ED5-85C7-A516C9AEFDC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.DynamicProxy.Sample", "Interceptron.DynamicProxy.Sample\Interceptron.DynamicProxy.Sample.csproj", "{9D33C65C-6BAC-4D9B-926B-6D67F517B9E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.DynamicProxy.Sample", "Interceptron.DynamicProxy.Sample\Interceptron.DynamicProxy.Sample.csproj", "{9D33C65C-6BAC-4D9B-926B-6D67F517B9E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.DispatchProxy.Sample", "Interceptron.DispatchProxy.Sample\Interceptron.DispatchProxy.Sample.csproj", "{15B9BC2F-AE91-4750-B473-50FDC04E7B36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.DispatchProxy.Sample", "Interceptron.DispatchProxy.Sample\Interceptron.DispatchProxy.Sample.csproj", "{15B9BC2F-AE91-4750-B473-50FDC04E7B36}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.DispatchProxy", "Interceptron.DispatchProxy\Interceptron.DispatchProxy.csproj", "{C3C530B5-4E6E-48FE-82ED-DC6E69F1B083}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.Sample.Shared", "Interceptron.Sample.Shared\Interceptron.Sample.Shared.csproj", "{CAE4D3DD-B5B5-4741-B9FF-C024F5A3BF31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.Sample.Shared", "Interceptron.Sample.Shared\Interceptron.Sample.Shared.csproj", "{CAE4D3DD-B5B5-4741-B9FF-C024F5A3BF31}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.Core", "Interceptron.Core\Interceptron.Core.csproj", "{51070291-71B6-4E4E-A91F-6AA5FA2A67CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3EB157F9-F99D-4780-869E-8F7712AB03E6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DispatchProxy", "DispatchProxy", "{A47BBF64-96AC-45FD-89D5-391D9C539943}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DynamicProxy", "DynamicProxy", "{B048D2C1-D8CB-4C09-B2BA-D8BB9EFD0FAB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D953F5C0-4E0F-4DC2-AA9D-62BC7D8EF6B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +56,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F1FD66BD-5880-4ED5-85C7-A516C9AEFDC7} = {B048D2C1-D8CB-4C09-B2BA-D8BB9EFD0FAB}
+		{9D33C65C-6BAC-4D9B-926B-6D67F517B9E9} = {B048D2C1-D8CB-4C09-B2BA-D8BB9EFD0FAB}
+		{15B9BC2F-AE91-4750-B473-50FDC04E7B36} = {A47BBF64-96AC-45FD-89D5-391D9C539943}
+		{C3C530B5-4E6E-48FE-82ED-DC6E69F1B083} = {A47BBF64-96AC-45FD-89D5-391D9C539943}
+		{CAE4D3DD-B5B5-4741-B9FF-C024F5A3BF31} = {D953F5C0-4E0F-4DC2-AA9D-62BC7D8EF6B8}
+		{51070291-71B6-4E4E-A91F-6AA5FA2A67CB} = {3EB157F9-F99D-4780-869E-8F7712AB03E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E1BA1D72-86D2-4F11-A17A-9A87A3B3CEF2}

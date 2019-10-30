@@ -1,6 +1,7 @@
 ﻿using System;
 using Castle.DynamicProxy;
 using Interceptron.Core;
+using Interceptron.DynamicProxy.Adapters;
 
 namespace Interceptron.DynamicProxy
 {

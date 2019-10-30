@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Castle.DynamicProxy;
 using Interceptron.Core;
+using Interceptron.DynamicProxy.Adapters;
 
-namespace Interceptron.DynamicProxy
+namespace Interceptron.DynamicProxy.Helpers
 {
     public static class DynamicProxyGeneratorHelper
     {
@@ -15,7 +16,8 @@ namespace Interceptron.DynamicProxy
                 throw new ArgumentNullException(nameof(interceptors));
             }
 
-            return interceptors.Select(i => new DynamicProxyInterceptorAdapter(i)).ToArray();
+            return interceptors.Select(i => (IInterceptor)new DynamicProxyInterceptorAdapter(i)).ToArray();
+
         }
     }
 }

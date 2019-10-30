@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Interceptron.Core;
+using Interceptron.DynamicProxy.Adapters;
 using NUnit.Framework;
 
 namespace Interceptron.DynamicProxy.Tests
 {
+    [SuppressMessage("ReSharper", "ObjectCreationAsStatement", Justification = "No need to a variable, Ctor will throw an exception")]
     public class DynamicProxyGenerationOptionAdapterTests
     {
         [Test]

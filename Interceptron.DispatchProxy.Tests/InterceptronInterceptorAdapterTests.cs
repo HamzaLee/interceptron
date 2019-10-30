@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using Interceptron.DispatchProxy.Adapters;
+using Interceptron.DispatchProxy.DispatchProxyWrappers;
 using Moq;
 using NUnit.Framework;
 
 namespace Interceptron.DispatchProxy.Tests
 {
+    [SuppressMessage("ReSharper", "ObjectCreationAsStatement", Justification = "No need to a variable, Ctor will throw an exception")]
     public class InterceptronInterceptorAdapterTests
     {
         [Test]
@@ -33,7 +37,7 @@ namespace Interceptron.DispatchProxy.Tests
         }
 
         [Test]
-        public void Intercept_WhenInvocationIsNotDispatchProxyInvocation_ThenThrowInvalidCastExceptiona()
+        public void Intercept_WhenInvocationIsNotDispatchProxyInvocation_ThenThrowInvalidCastException()
         {
             var expectedReturnedValue = "Returned value";
             var interceptorMock = new Mock<DispatchProxyInterceptor>();
