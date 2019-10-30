@@ -12,7 +12,7 @@ namespace Interceptron.DispatchProxy.Sample
             var interceptors = new IInterceptronInterceptor[] { new SimpleDispatchProxyInterceptor() };
 
             var services = new ServiceCollection();
-            services.AddDynamicProxyGenerator();
+            services.AddDispatchProxyGenerator();
             
             // AddTransient(services, interceptors);
             // AddScoped(services, interceptors);
