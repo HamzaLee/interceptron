@@ -18,13 +18,13 @@ services.AddTransient<ICustomService, CustomService>(new IInterceptor[] { new De
 
 | Platforms       | Master       | Develop    |
 |-----------------|-------------:|------------|
-| Windows|[![Build Status](https://dev.azure.com/HamzaLee/Interceptron/_apis/build/status/HamzaLee.interceptron?branchName=master)](https://dev.azure.com/HamzaLee/Interceptron/_build/latest?definitionId=1&branchName=master) |[![Build Status](https://dev.azure.com/HamzaLee/interceptron/_apis/build/status/HamzaLee.interceptron?branchName=develop)](https://dev.azure.com/HamzaLee/interceptron/_build/latest?definitionId=1&branchName=develop)
+| Windows|[![Build Status](https://dev.azure.com/HamzaLee/Interceptron/_apis/build/status/HamzaLee.interceptron?branchName=master)](https://dev.azure.com/HamzaLee/Interceptron/_build/latest?definitionId=2&branchName=master) |[![Build Status](https://dev.azure.com/HamzaLee/interceptron/_apis/build/status/HamzaLee.interceptron?branchName=develop)](https://dev.azure.com/HamzaLee/interceptron/_build/latest?definitionId=2&branchName=develop)
 
 ## Tests
 
-![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/HamzaLee/interceptron/1)
+![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/HamzaLee/interceptron/2)
 
-![Azure DevOps tests](https://img.shields.io/azure-devops/tests/HamzaLee/interceptron/1)
+![Azure DevOps tests](https://img.shields.io/azure-devops/tests/HamzaLee/interceptron/2)
 
 ## Issues
 
