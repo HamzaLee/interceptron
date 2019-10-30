@@ -1,5 +1,7 @@
 ﻿using System;
+using Castle.DynamicProxy;
 using Interceptron.Core;
+using Interceptron.DispatchProxy.Sample;
 using Interceptron.Sample.Shared;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,14 +11,15 @@ namespace Interceptron.DynamicProxy.Sample
     {
         static void Main(string[] args)
         {
-            var interceptors = new IInterceptronInterceptor[] { new SimpleDynamicProxyInterceptor() };
+            var interceptronInterceptors = new IInterceptronInterceptor[] { new SimpleInterceptronInterceptor() };
+            var dynamicProxyInterceptors = new[] { new SimpleDynamicProxyInterceptor().ToInterceptronInterceptor() };
 
             var services = new ServiceCollection();
             services.AddDynamicProxyGenerator();
 
-            // AddTransient(services, interceptors);
-            // AddScoped(services, interceptors);
-            AddSingleton(services, interceptors);
+            //AddTransient(services, interceptronInterceptors, dynamicProxyInterceptors);
+            //AddScoped(services, interceptronInterceptors, dynamicProxyInterceptors);
+            AddSingleton(services, interceptronInterceptors, dynamicProxyInterceptors);
 
             var serviceProvider = services.BuildServiceProvider();
 
@@ -29,10 +32,10 @@ namespace Interceptron.DynamicProxy.Sample
             Console.WriteLine($"CustomController : {customControllerValue}");
         }
 
-        private static void AddTransient(IServiceCollection services, IInterceptronInterceptor[] interceptors)
+        private static void AddTransient(IServiceCollection services, IInterceptronInterceptor[] interceptronInterceptors, IInterceptronInterceptor[] dynamicProxyInterceptors)
         {
-            services.AddTransient<CustomContext>(interceptors);
-            services.AddTransient(sp => new CustomConfiguration(), interceptors);
+            services.AddTransient<CustomContext>(dynamicProxyInterceptors);
+            services.AddTransient(sp => new CustomConfiguration(), interceptronInterceptors);
 
             services.AddTransient<ICustomRepository, CustomRepository>(
                 sp =>
@@ -41,15 +44,15 @@ namespace Interceptron.DynamicProxy.Sample
                     var customConfiguration = sp.GetRequiredService<CustomConfiguration>();
                     return new CustomRepository(customContext, customConfiguration);
                 },
-                interceptors);
-            services.AddTransient<ICustomService, CustomService>(interceptors);
-            services.AddTransient<ICustomController, CustomController>(interceptors);
+                interceptronInterceptors);
+            services.AddTransient<ICustomService, CustomService>(interceptronInterceptors);
+            services.AddTransient<ICustomController, CustomController>(interceptronInterceptors);
         }
 
-        private static void AddScoped(IServiceCollection services, IInterceptronInterceptor[] interceptors)
+        private static void AddScoped(IServiceCollection services, IInterceptronInterceptor[] interceptronInterceptors, IInterceptronInterceptor[] dynamicProxyInterceptors)
         {
-            services.AddScoped<CustomContext>(interceptors);
-            services.AddScoped(sp => new CustomConfiguration(), interceptors);
+            services.AddScoped<CustomContext>(dynamicProxyInterceptors);
+            services.AddScoped(sp => new CustomConfiguration(), interceptronInterceptors);
 
             services.AddScoped<ICustomRepository, CustomRepository>(
                 sp =>
@@ -58,15 +61,15 @@ namespace Interceptron.DynamicProxy.Sample
                     var customConfiguration = sp.GetRequiredService<CustomConfiguration>();
                     return new CustomRepository(customContext, customConfiguration);
                 },
-                interceptors);
-            services.AddScoped<ICustomService, CustomService>(interceptors);
-            services.AddScoped<ICustomController, CustomController>(interceptors);
+                interceptronInterceptors);
+            services.AddScoped<ICustomService, CustomService>(interceptronInterceptors);
+            services.AddScoped<ICustomController, CustomController>(interceptronInterceptors);
         }
 
-        private static void AddSingleton(IServiceCollection services, IInterceptronInterceptor[] interceptors)
+        private static void AddSingleton(IServiceCollection services, IInterceptronInterceptor[] interceptronInterceptors, IInterceptronInterceptor[] dynamicProxyInterceptors)
         {
-            services.AddSingleton<CustomContext>(interceptors);
-            services.AddSingleton(sp => new CustomConfiguration(), interceptors);
+            services.AddSingleton<CustomContext>(dynamicProxyInterceptors);
+            services.AddSingleton(sp => new CustomConfiguration(), interceptronInterceptors);
 
             services.AddSingleton<ICustomRepository, CustomRepository>(
                 sp =>
@@ -75,9 +78,9 @@ namespace Interceptron.DynamicProxy.Sample
                     var customConfiguration = sp.GetRequiredService<CustomConfiguration>();
                     return new CustomRepository(customContext, customConfiguration);
                 },
-                interceptors);
-            services.AddSingleton<ICustomService, CustomService>(interceptors);
-            services.AddSingleton<ICustomController, CustomController>(interceptors);
+                interceptronInterceptors);
+            services.AddSingleton<ICustomService, CustomService>(interceptronInterceptors);
+            services.AddSingleton<ICustomController, CustomController>(interceptronInterceptors);
         }
     }
 }

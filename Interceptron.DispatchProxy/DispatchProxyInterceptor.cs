@@ -1,13 +1,12 @@
-﻿
-using System.Reflection;
+﻿using System.Reflection;
 
-namespace Interceptron.DispatchProxy.DispatchProxyWrappers
+namespace Interceptron.DispatchProxy
 {
     public abstract class DispatchProxyInterceptor : System.Reflection.DispatchProxy
     {
         public object Target { get; set; }
 
-        public abstract object Intercept(DispatchProxyInvocation dispatchProxyInvocation);
+        public abstract object Intercept(DispatchProxyInvocation invocation);
 
         protected override object Invoke(MethodInfo targetMethod, object[] args)
         {

@@ -1,7 +1,6 @@
 ﻿using System;
 using Interceptron.Core;
 using Interceptron.DispatchProxy.Adapters;
-using Interceptron.DispatchProxy.DispatchProxyWrappers;
 
 namespace Interceptron.DispatchProxy
 {

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Interceptron.DispatchProxy.DispatchProxyWrappers
+namespace Interceptron.DispatchProxy
 {
     public class DispatchProxyInvocation
     {

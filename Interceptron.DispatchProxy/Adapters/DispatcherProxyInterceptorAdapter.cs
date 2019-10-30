@@ -1,5 +1,4 @@
 ﻿using Interceptron.Core;
-using Interceptron.DispatchProxy.DispatchProxyWrappers;
 
 namespace Interceptron.DispatchProxy.Adapters
 {

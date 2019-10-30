@@ -1,6 +1,5 @@
 ﻿using Interceptron.Core;
 using Interceptron.DispatchProxy.Adapters;
-using Interceptron.DispatchProxy.DispatchProxyWrappers;
 using Moq;
 using NUnit.Framework;
 

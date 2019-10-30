@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using Interceptron.DispatchProxy.Adapters;
-using Interceptron.DispatchProxy.DispatchProxyWrappers;
 using Moq;
 using NUnit.Framework;
 
