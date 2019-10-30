@@ -5,7 +5,7 @@ namespace Interceptron.DispatchProxy
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddDynamicProxyGenerator(this IServiceCollection services)
+        public static void AddDispatchProxyGenerator(this IServiceCollection services)
         {
             services.AddSingleton<IInterceptronProxyGenerator, DispatchProxyGenerator>();
         }
