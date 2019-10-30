@@ -5,11 +5,10 @@ namespace Interceptron.DispatchProxy.Sample
 {
     internal class SimpleDispatchProxyInterceptor : IInterceptronInterceptor
     {
-        public object Intercept(object invocation)
+        public object Intercept(IInterceptronInvocation invocation)
         {
-            var dynamicProxyInvocation = (DispatchProxyInvocation)invocation;
-            Console.WriteLine($"--- Intercept {dynamicProxyInvocation.Target.GetType().Name}");
-            return dynamicProxyInvocation.Invoke();
+            Console.WriteLine($"--- Intercept {invocation.Target.GetType().Name}");
+            return invocation.Invoke();
         }
     }
 }

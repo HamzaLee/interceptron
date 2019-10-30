@@ -33,30 +33,22 @@ namespace Interceptron.DispatchProxy.Tests
         }
 
         [Test]
-        public void Intercept_WhenInvocationIsNotDispatchProxyInvocation_ThenThrowInvalidCastException()
-        {
-            var interceptorMock = new Mock<DispatchProxyInterceptor>();
-
-            var interceptronInterceptorAdapter = new InterceptronInterceptorAdapter(interceptorMock.Object);
-
-            Assert.Throws<InvalidCastException>(() => interceptronInterceptorAdapter.Intercept("Not an invocation"));
-        }
-
-        [Test]
         public void Intercept_WhenInvocationIsNotDispatchProxyInvocation_ThenThrowInvalidCastExceptiona()
         {
             var expectedReturnedValue = "Returned value";
             var interceptorMock = new Mock<DispatchProxyInterceptor>();
             interceptorMock.Setup(i => i.Intercept(It.IsAny<DispatchProxyInvocation>()))
                 .Returns(expectedReturnedValue);
-            var invocation = new DispatchProxyInvocation(null, null, null);
+            var dispatchProxyInvocation = new DispatchProxyInvocation(null, null, null);
+            var invocation = new InterceptronInvocationAdapter(dispatchProxyInvocation);
+
             var interceptronInterceptorAdapter = new InterceptronInterceptorAdapter(interceptorMock.Object);
 
             var actualReturnedValue = interceptronInterceptorAdapter.Intercept(invocation);
 
             Assert.AreEqual(expectedReturnedValue, actualReturnedValue);
             Assert.AreEqual(interceptorMock.Object, interceptronInterceptorAdapter.Interceptor);
-            interceptorMock.Verify(i => i.Intercept(invocation), Times.Once);
+            interceptorMock.Verify(i => i.Intercept(dispatchProxyInvocation), Times.Once);
         }
     }
 }

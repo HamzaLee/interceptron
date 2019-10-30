@@ -14,7 +14,7 @@ namespace Interceptron.DispatchProxy
             }
 
             invocation.Target = this.Target;
-            return this.Interceptor.Intercept(invocation);
+            return this.Interceptor.Intercept(new InterceptronInvocationAdapter(invocation));
         }
     }
 }

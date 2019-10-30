@@ -12,14 +12,14 @@ namespace Interceptron.DispatchProxy
 
         public DispatchProxyInterceptor Interceptor { get; }
 
-        public object Intercept(object invocation)
+        public object Intercept(IInterceptronInvocation invocation)
         {
             if (invocation == null)
             {
                 throw new ArgumentNullException(nameof(invocation));
             }
 
-            if (!(invocation is DispatchProxyInvocation dispatchProxyInvocation))
+            if (!(invocation.Invocation is DispatchProxyInvocation dispatchProxyInvocation))
             {
                 throw new InvalidCastException($"{invocation} parameter should be of type IInvocation.");
             }

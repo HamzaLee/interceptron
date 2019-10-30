@@ -34,25 +34,16 @@ namespace Interceptron.DynamicProxy.Tests
         }
 
         [Test]
-        public void Intercept_WhenInvocationIsNotIInvocation_ThenThrowArgumentException()
-        {
-            var interceptorMock = new Mock<IInterceptor>();
-
-            var interceptronInterceptorAdapter = new InterceptronInterceptorAdapter(interceptorMock.Object);
-
-            Assert.Throws<InvalidCastException>(() => interceptronInterceptorAdapter.Intercept("Not an invocation"));
-        }
-
-        [Test]
         public void Intercept()
         {
             var expectedReturnedValue = "Returned value";
             var interceptorMock = new Mock<IInterceptor>();
             var invocationMock = new Mock<Castle.DynamicProxy.IInvocation>();
+            var invocation = new InterceptronInvocationAdapter(invocationMock.Object);
             invocationMock.Setup(i => i.ReturnValue).Returns(expectedReturnedValue);
             var interceptronInterceptorAdapter = new InterceptronInterceptorAdapter(interceptorMock.Object);
 
-            var actualReturnedValue = interceptronInterceptorAdapter.Intercept(invocationMock.Object);
+            var actualReturnedValue = interceptronInterceptorAdapter.Intercept(invocation);
 
             Assert.AreEqual(expectedReturnedValue, actualReturnedValue);
             interceptorMock.Verify(i => i.Intercept(invocationMock.Object), Times.Once);

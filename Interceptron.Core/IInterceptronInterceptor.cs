@@ -2,6 +2,6 @@
 {
     public interface IInterceptronInterceptor
     {
-        object Intercept(object invocation);
+        object Intercept(IInterceptronInvocation invocation);
     }
 }

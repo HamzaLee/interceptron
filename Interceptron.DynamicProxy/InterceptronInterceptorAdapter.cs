@@ -13,14 +13,14 @@ namespace Interceptron.DynamicProxy
 
         private IInterceptor Interceptor { get; }
 
-        public object Intercept(object invocation)
+        public object Intercept(IInterceptronInvocation invocation)
         {
             if (invocation == null)
             {
                 throw new ArgumentNullException(nameof(invocation));
             }
 
-            if (!(invocation is IInvocation dynamicProxyInvocation))
+            if (!(invocation.Invocation is IInvocation dynamicProxyInvocation))
             {
                 throw new InvalidCastException($"{invocation} parameter should be of type IInvocation.");
             }
