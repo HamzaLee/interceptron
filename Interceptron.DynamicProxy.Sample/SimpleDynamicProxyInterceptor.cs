@@ -6,12 +6,10 @@ namespace Interceptron.DynamicProxy.Sample
 {
     public class SimpleDynamicProxyInterceptor : IInterceptronInterceptor
     {
-        public object Intercept(object invocation)
+        public object Intercept(IInterceptronInvocation invocation)
         {
-            var dynamicProxyInvocation = (IInvocation)invocation;
-            Console.WriteLine($"--- Intercept {dynamicProxyInvocation.TargetType.Name}");
-            dynamicProxyInvocation.Proceed();
-            return dynamicProxyInvocation.ReturnValue;
+            Console.WriteLine($"--- Intercept {invocation.Target.GetType().Name}");
+            return invocation.Invoke();
         }
     }
 }

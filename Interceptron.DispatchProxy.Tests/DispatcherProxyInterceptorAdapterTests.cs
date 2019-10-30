@@ -20,14 +20,14 @@ namespace Interceptron.DispatchProxy.Tests
             var expectedReturnedValue = "Returned value";
             var dispatcherProxyInterceptorAdapter = new DispatcherProxyInterceptorAdapter();
             var interceptorMock = new Mock<IInterceptronInterceptor>();
-            interceptorMock.Setup(i => i.Intercept(It.IsAny<object>())).Returns(expectedReturnedValue);
+            interceptorMock.Setup(i => i.Intercept(It.IsAny<IInterceptronInvocation>())).Returns(expectedReturnedValue);
             dispatcherProxyInterceptorAdapter.Interceptor = interceptorMock.Object;
             var invocation = new DispatchProxyInvocation(null, null, null);
 
             var actualReturnedValue = dispatcherProxyInterceptorAdapter.Intercept(invocation);
 
             Assert.AreEqual(expectedReturnedValue, actualReturnedValue);
-            interceptorMock.Verify(i => i.Intercept(invocation), Times.Once);
+            interceptorMock.Verify(i => i.Intercept(It.IsAny<IInterceptronInvocation>()), Times.Once);
         }
     }
 }

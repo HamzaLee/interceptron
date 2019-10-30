@@ -7,7 +7,7 @@ namespace Interceptron.DispatchProxy
         public DispatchProxyInvocation(MethodInfo targetMethod, object[] args, object target)
         {
             MethodInfo = targetMethod;
-            Args = args;
+            Arguments = args;
             Target = target;
         }
 
@@ -15,11 +15,11 @@ namespace Interceptron.DispatchProxy
 
         public MethodInfo MethodInfo { get; set; }
 
-        public object[] Args { get; set; }
+        public object[] Arguments { get; set; }
 
         public object Invoke()
         {
-            return MethodInfo.Invoke(Target, Args);
+            return MethodInfo.Invoke(Target, Arguments);
         }
     }
 }

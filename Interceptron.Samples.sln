@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.DispatchProxy"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptron.Sample.Shared", "Interceptron.Sample.Shared\Interceptron.Sample.Shared.csproj", "{CAE4D3DD-B5B5-4741-B9FF-C024F5A3BF31}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptron.Core", "Interceptron.Core\Interceptron.Core.csproj", "{51070291-71B6-4E4E-A91F-6AA5FA2A67CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{CAE4D3DD-B5B5-4741-B9FF-C024F5A3BF31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAE4D3DD-B5B5-4741-B9FF-C024F5A3BF31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAE4D3DD-B5B5-4741-B9FF-C024F5A3BF31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51070291-71B6-4E4E-A91F-6AA5FA2A67CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51070291-71B6-4E4E-A91F-6AA5FA2A67CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51070291-71B6-4E4E-A91F-6AA5FA2A67CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51070291-71B6-4E4E-A91F-6AA5FA2A67CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

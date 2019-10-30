@@ -15,7 +15,7 @@ namespace Interceptron.DynamicProxy
 
         public void Intercept(IInvocation invocation)
         {
-            Interceptor.Intercept(invocation);
+            Interceptor.Intercept(new InterceptronInvocationAdapter(invocation));
         }
     }
 }

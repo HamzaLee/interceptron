@@ -32,7 +32,7 @@ namespace Interceptron.DynamicProxy.Tests
             var dynamicProxyInterceptorAdapter = new DynamicProxyInterceptorAdapter(interceptorMock.Object);
 
             dynamicProxyInterceptorAdapter.Intercept(invocationMock.Object);
-            interceptorMock.Verify(i => i.Intercept(invocationMock.Object), Times.Once);
+            interceptorMock.Verify(i => i.Intercept(It.IsAny<IInterceptronInvocation>()), Times.Once);
         }
     }
 }
