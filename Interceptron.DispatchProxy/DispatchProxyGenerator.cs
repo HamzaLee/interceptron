@@ -27,18 +27,28 @@ namespace Interceptron.DispatchProxy
             return CreateInterfaceProxy(implementationInstance, interceptors);
         }
 
+        // TODO : Improve code
         private static TService InterfaceProxyWithTarget<TService>(TService implementationInstance, IInterceptronInterceptor interceptor) where TService : class
         {
-            var proxy = System.Reflection.DispatchProxy.Create<TService, DispatcherProxyInterceptorAdapter>();
-
-            if (proxy is DispatcherProxyInterceptorAdapter dispatcherProxyInterceptorAdapter)
+            TService proxy;
+            if (interceptor is NativeInterceptronInterceptorAdapter nativeAdapter)
             {
-                dispatcherProxyInterceptorAdapter.Interceptor = interceptor;
-                dispatcherProxyInterceptorAdapter.Target = implementationInstance;
+                proxy = (TService)DispatchProxyUtils.CreateDispatchProxy(typeof(TService), nativeAdapter.Interceptor.GetType());
+                var dispatchProxy = proxy as System.Reflection.DispatchProxy;
+                nativeAdapter.TargetSetter(dispatchProxy)(implementationInstance);
             }
             else
             {
-                throw new DispatchProxyGeneratorException("Unable to create a proxy with DispatchProxy.");
+                proxy = System.Reflection.DispatchProxy.Create<TService, DispatcherProxyInterceptorAdapter>();
+                if (proxy is DispatcherProxyInterceptorAdapter dispatcherProxyInterceptorAdapter)
+                {
+                    dispatcherProxyInterceptorAdapter.Interceptor = interceptor;
+                    dispatcherProxyInterceptorAdapter.Target = implementationInstance;
+                }
+                else
+                {
+                    throw new DispatchProxyGeneratorException("Unable to create a proxy with DispatchProxy.");
+                }
             }
 
             return proxy;
