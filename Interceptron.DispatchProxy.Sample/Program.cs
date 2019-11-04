@@ -10,13 +10,19 @@ namespace Interceptron.DispatchProxy.Sample
         static void Main(string[] args)
         {
             var interceptronInterceptors = new IInterceptronInterceptor[] { new SimpleInterceptronInterceptor() };
-            var dispatchProxyInterceptors = new[] { new SimpleDispatchProxyInterceptor().ToInterceptronInterceptor() };
+            var dispatchProxyInterceptors = new[]
+            {
+
+                new SimpleInterceptronInterceptor(),
+                new SimpleDispatchProxyInterceptor().ToInterceptronInterceptor(),
+                new NativeDispatchProxyInterceptor().ToInterceptronInterceptor(i => ((NativeDispatchProxyInterceptor)i).SetTarget)
+            };
 
             var services = new ServiceCollection();
             services.AddDispatchProxyGenerator();
 
-            AddTransient(services, interceptronInterceptors, dispatchProxyInterceptors);
-            AddScoped(services, interceptronInterceptors, dispatchProxyInterceptors);
+            //AddTransient(services, interceptronInterceptors, dispatchProxyInterceptors);
+            //AddScoped(services, interceptronInterceptors, dispatchProxyInterceptors);
             AddSingleton(services, interceptronInterceptors, dispatchProxyInterceptors);
 
             var serviceProvider = services.BuildServiceProvider();
